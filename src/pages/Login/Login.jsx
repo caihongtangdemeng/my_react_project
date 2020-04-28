@@ -3,11 +3,14 @@ import { Form, Input, Button } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import './css/login.less'
 import logo from './images/logo.png'
+import { reqLogin } from '../../api/index';
 
 export default class Login extends Component{
-  onFinish = values => {
-    console.log('Received values of form: ', values)
+  //校验成功后才能发请求
+  onFinish =async values => {
+    let result=await reqLogin(values)
   };
+  // 自定义校验 返回Promise
   pwdValidator=(_,value="")=>{
     let errMsgArr=[]
     if(!value.trim()) return Promise.reject('密码不能为空！')
@@ -33,6 +36,7 @@ export default class Login extends Component{
             >
               <Form.Item
                 name="username"
+                //声明式校验
                 rules={[
                   {required: true, message: '用户名不能为空!' },
                   {min:4,message:'用户名必须大于等于4位！'},
