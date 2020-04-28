@@ -8,6 +8,14 @@ export default class Login extends Component{
   onFinish = values => {
     console.log('Received values of form: ', values)
   };
+  pwdValidator=(_,value="")=>{
+    let errMsgArr=[]
+    if(!value.trim()) return Promise.reject('密码不能为空！')
+    if(value.length<4||value.length>12) errMsgArr.push('密码长度必须大于等于4小于等于12！')
+    if(!/^\w+$/.test(value)) errMsgArr.push('密码必须是字母数字下划线！')
+    if(errMsgArr.length===0) return Promise.resolve()
+    else return Promise.reject(errMsgArr)
+  }
   render(){
     return (
       <div className="login">
@@ -25,13 +33,18 @@ export default class Login extends Component{
             >
               <Form.Item
                 name="username"
-                rules={[{ required: true, message: 'Please input your Username!' }]}
+                rules={[
+                  {required: true, message: '用户名不能为空!' },
+                  {min:4,message:'用户名必须大于等于4位！'},
+                  {max:12,message:'用户名必须小于等于12位！'},
+                  {pattern:/^\w+$/ ,message:'用户名必须是字母数字下划线组成！'},
+                ]}
               >
                 <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="用户名" />
               </Form.Item>
               <Form.Item
                 name="password"
-                rules={[{ required: true, message: 'Please input your Password!' }]}
+                rules={[{validator:this.pwdValidator }]}
               >
                 <Input
                   prefix={<LockOutlined className="site-form-item-icon" />}
