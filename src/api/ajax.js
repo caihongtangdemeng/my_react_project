@@ -1,3 +1,11 @@
+/* 
+	该文件是对axios这个库的二次封装，完成：
+		1.配置请求的基础路径
+		2.配置超时时间
+		3.统一处理post请求json编码问题（对象转为urlencoded）引入querystring
+		4.统一返回真正的数据data，而不是response对象
+		5.统一处理错误
+*/
 import axios from 'axios'
 import qs from 'querystring'
 import {message as msg} from 'antd' 
