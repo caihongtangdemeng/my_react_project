@@ -1,3 +1,3 @@
 import {createStore} from 'redux'
-import countReducer from './Count-reducer'
+import countReducer from './reducers/count'
 export default createStore(countReducer)
