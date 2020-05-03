@@ -25,9 +25,8 @@ export default class Count extends Component{
   }
   incrementAsync = ()=>{
     const {value}=this.refs.user_selected
-   setTimeout(() => {
-     this.props.increment(value*1)
-   }, 600);
+     this.props.incrementAsync(value*1,500)
+  
   }
   render(){
     return (
