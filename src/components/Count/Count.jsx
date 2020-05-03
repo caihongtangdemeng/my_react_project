@@ -33,7 +33,7 @@ export default class Count  extends Component{
   render(){
     return (
       <div>
-        <h2>总数是：{store.getState()}</h2>
+        <h2>当前求和是：{store.getState()}</h2>
         <select ref="user_selected">
           <option value="1">1</option>
           <option value="2">2</option>
