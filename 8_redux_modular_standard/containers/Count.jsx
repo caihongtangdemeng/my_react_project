@@ -1,11 +1,8 @@
-/* 
-	该文件是Count的UI组件
-		1.UI的外侧应该包裹一个容器组件，他们是父子关系。
-		2.UI组件中不能使用任何redux的api。
-		3.会通过props接到容器组件传过来的：状态、操作状态的方法。
-*/
+import {connect} from 'react-redux'
+import {increment,decrement,incrementAsync} from '../redux/actions/count'
+
 import React,{Component} from 'react'
-export default class Count extends Component{
+ class Count extends Component{
 
   increment = ()=>{
     const {value}=this.refs.user_selected
@@ -46,3 +43,10 @@ export default class Count extends Component{
     )
   }
 }
+export default connect(
+  state=>({
+    count:state.number,
+    personCount:state.persons.length
+  }),
+  {increment,decrement,incrementAsync}
+)(Count)

@@ -1,6 +1,8 @@
-import React,{Component} from 'react'
+import {connect} from 'react-redux'
+import {addPerson} from '../redux/actions/person'
 import {v4 as uuidv4} from 'uuid'
-export default class Person extends Component{
+import React,{Component} from 'react'
+ class Person extends Component{
  add=()=>{
    const {nameNode,ageNode}=this.refs
    if(!nameNode.value||!ageNode.value){
@@ -36,3 +38,10 @@ export default class Person extends Component{
     )
   }
 }
+export default connect(
+    state=>({
+      persons:state.persons,
+      shu:state.number
+    }),
+  {addPerson}
+)(Person)
