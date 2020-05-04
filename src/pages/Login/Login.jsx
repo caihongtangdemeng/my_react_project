@@ -9,6 +9,13 @@ export default class Login extends Component{
   //校验成功后才能发请求
   onFinish =async values => {
     let result=await reqLogin(values)
+    const {state,data,msg}=result
+    if(state===0){
+      message.success('登录成功',1)
+
+    }else{
+      message.error(msg)
+    }
   };
   // 自定义校验 返回Promise
   pwdValidator=(_,value="")=>{

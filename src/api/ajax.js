@@ -9,11 +9,14 @@
 import axios from 'axios'
 import qs from 'querystring'
 import {message as msg} from 'antd' 
+import nprogress from 'nprogress'
+import 'nprogress/nprogress.css'
 
 axios.defaults.baseURL='http://localhost:3000'
 axios.defaults.timeout=2000
 
 axios.interceptors.request.use((config)=>{
+  nprogress.start()
   const {method,data}=config
   if(method.toLowerCase()==='post'&&data instanceof Object){
     config.data=qs.stringify(data)
@@ -23,9 +26,11 @@ axios.interceptors.request.use((config)=>{
 
 axios.interceptors.response.use(
   response=>{
+    nprogress.done()
     return response.data
   },
   err=>{
+    nprogress.done()
     let errMsg='未知错误 请联系管理员'
     const {message}=err
     if(message.indexOf('401')!==-1) errMsg='未登录或登录过期，请重新登录'
