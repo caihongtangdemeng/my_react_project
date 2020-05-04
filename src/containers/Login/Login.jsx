@@ -1,5 +1,5 @@
 import React,{Component} from 'react'
-import { Form, Input, Button } from 'antd';
+import { Form, Input, Button,message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import './css/login.less'
 import logo from './images/logo.png'
@@ -12,7 +12,7 @@ export default class Login extends Component{
     const {state,data,msg}=result
     if(state===0){
       message.success('登录成功',1)
-
+      this.props.history.replace('./admin')
     }else{
       message.error(msg)
     }
@@ -23,8 +23,8 @@ export default class Login extends Component{
     if(!value.trim()) return Promise.reject('密码不能为空！')
     if(value.length<4||value.length>12) errMsgArr.push('密码长度必须大于等于4小于等于12！')
     if(!/^\w+$/.test(value)) errMsgArr.push('密码必须是字母数字下划线！')
-    if(errMsgArr.length===0) return Promise.resolve()
-    else return Promise.reject(errMsgArr)
+    if(errMsgArr.length!==0) return Promise.reject(errMsgArr)
+    else return Promise.resolve()
   }
   render(){
     return (
