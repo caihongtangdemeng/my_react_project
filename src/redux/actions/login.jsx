@@ -7,3 +7,8 @@ export const saveUserInfo=userObj=>{
   
   return {type:SAVE_USERINFO,data:userObj}
 }
+
+export const deleteUserInfo=()=>{
+  localStorage.clear()
+  return {type:DELETE_USERINFO}
+}
