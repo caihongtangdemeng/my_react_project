@@ -1,17 +1,20 @@
 import React,{Component} from 'react'
 import { Form, Input, Button,message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import {connect} from 'react-redux'
+import {saveUserInfo} from '@/redux/actions/login'
 import './css/login.less'
 import logo from './images/logo.png'
 import { reqLogin } from '../../api/index';
 
-export default class Login extends Component{
+ class Login extends Component{
   //校验成功后才能发请求
   onFinish =async values => {
     let result=await reqLogin(values)
     const {state,data,msg}=result
     if(state===0){
       message.success('登录成功',1)
+      this.props.saveUserInfo(data)
       this.props.history.replace('./admin')
     }else{
       message.error(msg)
@@ -74,3 +77,8 @@ export default class Login extends Component{
     )
   }
 }
+
+export default connect(
+  state=>({isLogin:state.userInfo.isLogin}),
+  {saveUserInfo}
+)(Login)
