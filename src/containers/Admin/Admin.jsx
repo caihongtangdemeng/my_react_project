@@ -1,9 +1,19 @@
 import React,{Component} from 'react'
+import {connect} from 'react-redux'
 
-export default class Admin extends Component{
+ class Admin extends Component{
   render(){
     return (
-      <div></div>
+      <div>
+        <span>欢迎，</span>
+      </div>
     )
   }
 }
+export default connect(
+  state=>({
+    isLogin:state.userInfo.isLogin
+  }),
+  {}
+)(Admin)
+// {this.props.userInfo.user.username}

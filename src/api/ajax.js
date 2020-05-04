@@ -12,7 +12,7 @@ import {message as msg} from 'antd'
 import nprogress from 'nprogress'
 import 'nprogress/nprogress.css'
 
-axios.defaults.baseURL='http://localhost:3000'
+axios.defaults.baseURL='/api'
 axios.defaults.timeout=2000
 
 axios.interceptors.request.use((config)=>{

@@ -5,7 +5,7 @@ import {connect} from 'react-redux'
 import {saveUserInfo} from '@/redux/actions/login'
 import './css/login.less'
 import logo from './images/logo.png'
-import { reqLogin } from '../../api/index';
+import { reqLogin } from '@/api/index';
 
  class Login extends Component{
   //校验成功后才能发请求
@@ -39,9 +39,7 @@ import { reqLogin } from '../../api/index';
         <section>
           <span className="title">用户登录</span>
             <Form
-              name="normal_login"
               className="login-form"
-              initialValues={{ remember: true }}
               onFinish={this.onFinish}
             >
               <Form.Item
