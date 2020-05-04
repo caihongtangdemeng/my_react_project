@@ -2,6 +2,7 @@ import React,{Component} from 'react'
 import { Form, Input, Button,message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import {connect} from 'react-redux'
+import {Redirect} from 'react-router-dom'
 import {saveUserInfo} from '@/redux/actions/login'
 import './css/login.less'
 import logo from './images/logo.png'
@@ -11,11 +12,11 @@ import { reqLogin } from '@/api/index';
   //校验成功后才能发请求
   onFinish =async values => {
     let result=await reqLogin(values)
-    const {state,data,msg}=result
-    if(state===0){
+    const {status,data,msg}=result //刚才这里单词写错了，是status，不是state
+    if(status===0){
       message.success('登录成功',1)
       this.props.saveUserInfo(data)
-      this.props.history.replace('./admin')
+     
     }else{
       message.error(msg)
     }
@@ -30,6 +31,7 @@ import { reqLogin } from '@/api/index';
     else return Promise.resolve()
   }
   render(){
+    if(this.props.isLogin) return <Redirect to="/admin"/>
     return (
       <div className="login">
         <header>
