@@ -12,6 +12,10 @@ import { connect } from 'react-redux';
 import {deleteUserInfo} from '@/redux/actions/login'
 
 const { confirm } = Modal;
+@connect(
+  state=>({username:state.userInfo.user.username}),
+  {deleteUserInfo}
+)
  class Header extends Component{
   state={
     isFull:false
@@ -38,13 +42,14 @@ const { confirm } = Modal;
     })
   }
   render(){
+    const {username}=this.props
     return (
       <div className="header">
         <div className="header-top">
           <Button size="small" onClick={this.fullScreen}>
          { this.state.isFull ? <FullscreenExitOutlined /> : <FullscreenOutlined />}
           </Button>
-          <span className="username">欢迎，xxx</span>
+    <span className="username">欢迎，{username}</span>
           <Button type="link" size="small" onClick={this.logout}>退出登录</Button>
         </div>
         <div className="header-bottom">
@@ -62,7 +67,4 @@ const { confirm } = Modal;
     )
   }
 }
-export default connect(
-  state=>({}),
-  {deleteUserInfo}
-)(Header)
+export default Header

@@ -8,6 +8,10 @@ import './css/login.less'
 import logo from './images/logo.png'
 import { reqLogin } from '@/api/index';
 
+@connect(
+  state=>({isLogin:state.userInfo.isLogin}),
+  {saveUserInfo}
+)
  class Login extends Component{
   //校验成功后才能发请求
   onFinish =async values => {
@@ -78,7 +82,4 @@ import { reqLogin } from '@/api/index';
   }
 }
 
-export default connect(
-  state=>({isLogin:state.userInfo.isLogin}),
-  {saveUserInfo}
-)(Login)
+export default Login

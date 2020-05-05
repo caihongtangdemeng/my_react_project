@@ -6,6 +6,10 @@ import Header from './Header/Header'
 import './css/admin.less'
 const { Footer, Sider, Content } = Layout;
 
+@connect(
+  state=>({isLogin:state.userInfo.isLogin}),
+  {}
+)
  class Admin extends Component{
   render(){
     if(!this.props.isLogin) return <Redirect to="/login"/>
@@ -22,9 +26,4 @@ const { Footer, Sider, Content } = Layout;
     )
   }
 }
-export default connect(
-  state=>({
-    isLogin:state.userInfo.isLogin
-  }),
-  {}
-)(Admin)
+export default Admin
