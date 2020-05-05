@@ -1,11 +1,20 @@
 import React,{Component} from 'react'
 import {connect} from 'react-redux'
-import {Redirect} from 'react-router-dom'
-import { Layout } from 'antd';
+import {Switch,Route,Redirect} from 'react-router-dom'
+import { Layout} from 'antd';
 import Header from './Header/Header'
 import LeftNav from './LeftNav/LeftNav'
 import './css/admin.less'
 import Check from '../HOC/Check';
+import Category from './Category/Category';
+import Product from './Product/Product';
+import Home from './Home/Home'
+import User from './User/User'
+import Role from './Role/Role'
+import Bar from './Bar/Bar'
+import Line from './Line/Line'
+import Pie from './Pie/Pie'
+
 const { Footer, Sider, Content } = Layout;
 
 @connect(
@@ -21,7 +30,19 @@ const { Footer, Sider, Content } = Layout;
           <Sider><LeftNav /></Sider>
           <Layout>
             <Header />
-            <Content>Content</Content>
+            <Content>
+              <Switch>
+                <Route path="/admin/home" component={Home}></Route>
+                <Route path="/admin/prod_about/category" component={Category}></Route>
+                <Route path="/admin/prod_about/product" component={Product}></Route>
+                <Route path="/admin/user" component={User}></Route>
+                <Route path="/admin/role" component={Role}></Route>
+                <Route path="/admin/charts/bar" component={Bar}></Route>
+                <Route path="/admin/charts/line" component={Line}></Route>
+                <Route path="/admin/charts/pie" component={Pie}></Route>
+                <Redirect to="/admin/home"/>
+              </Switch>
+            </Content>
             <Footer>Footer</Footer>
           </Layout>
     </Layout>
