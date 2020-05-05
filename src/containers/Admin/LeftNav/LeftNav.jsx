@@ -1,30 +1,31 @@
 import React,{Component} from 'react'
 import { Menu, Button } from 'antd';
-import {
-  AppstoreOutlined,
-  MenuUnfoldOutlined,
-  MenuFoldOutlined,
-  PieChartOutlined,
-  DesktopOutlined,
-  ContainerOutlined,
-  MailOutlined,
-} from '@ant-design/icons';
 import logo from '@/assets/images/logo.png'
 import './css/left_nav.less'
+import menus from '@/config/menu_config'
 
-const { SubMenu } = Menu;
+const {Item,SubMenu } = Menu;
 
 
 export default class LeftNav extends Component{
-  state = {
-    collapsed: false,
-  };
-
-  toggleCollapsed = () => {
-    this.setState({
-      collapsed: !this.state.collapsed,
-    });
-  };
+  //创建菜单函数
+  createMenu=(menuArr)=>{
+    return menuArr.map((menuObj)=>{
+      if(!menuObj.children){
+        return (
+          <Item key={menuObj.key} icon={<menuObj.icon/>}>
+            {menuObj.title}
+          </Item>
+        )
+      }else{
+        return (
+          <SubMenu key={menuObj.key} icon={<menuObj.icon />} title={menuObj.title}>
+            {this.createMenu(menuObj.children)}
+          </SubMenu>
+        )
+      }
+    })
+  }
   render(){
     return (
       <div className="left_nav">
@@ -34,21 +35,12 @@ export default class LeftNav extends Component{
         </div>
         
         <Menu
-          defaultSelectedKeys={['1']}
-          defaultOpenKeys={['sub1']}
+          defaultSelectedKeys={['home']}
+          defaultOpenKeys={[]}
           mode="inline"
           theme="dark"
-          inlineCollapsed={this.state.collapsed}
         >
-          <Menu.Item key="1" icon={<PieChartOutlined />}>
-            Option 1
-          </Menu.Item>
-          <SubMenu key="sub1" icon={<MailOutlined />} title="Navigation One">
-            <Menu.Item key="5">Option 5</Menu.Item>
-            <Menu.Item key="6">Option 6</Menu.Item>
-            <Menu.Item key="7">Option 7</Menu.Item>
-            <Menu.Item key="8">Option 8</Menu.Item>
-          </SubMenu>
+          {this.createMenu(menus)}
         </Menu>
       </div>
     )
