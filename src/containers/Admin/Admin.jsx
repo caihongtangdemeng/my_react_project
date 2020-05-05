@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import {Redirect} from 'react-router-dom'
 import { Layout } from 'antd';
 import Header from './Header/Header'
+import LeftNav from './LeftNav/LeftNav'
 import './css/admin.less'
 import Check from '../HOC/Check';
 const { Footer, Sider, Content } = Layout;
@@ -17,7 +18,7 @@ const { Footer, Sider, Content } = Layout;
     if(!this.props.isLogin) return <Redirect to="/login"/>
     return (
         <Layout className="admin-container">
-          <Sider>Sider</Sider>
+          <Sider><LeftNav /></Sider>
           <Layout>
             <Header />
             <Content>Content</Content>

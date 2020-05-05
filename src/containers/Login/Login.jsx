@@ -5,7 +5,7 @@ import {connect} from 'react-redux'
 import {Redirect} from 'react-router-dom'
 import {saveUserInfo} from '@/redux/actions/login'
 import './css/login.less'
-import logo from './images/logo.png'
+import logo from '@/assets/images/logo.png'
 import { reqLogin } from '@/api/index';
 import Check from '../HOC/Check';
 
