@@ -7,11 +7,13 @@ import {saveUserInfo} from '@/redux/actions/login'
 import './css/login.less'
 import logo from './images/logo.png'
 import { reqLogin } from '@/api/index';
+import Check from '../HOC/Check';
 
 @connect(
   state=>({isLogin:state.userInfo.isLogin}),
   {saveUserInfo}
 )
+@Check
  class Login extends Component{
   //校验成功后才能发请求
   onFinish =async values => {
