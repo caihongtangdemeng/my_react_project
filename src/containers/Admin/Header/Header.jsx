@@ -8,9 +8,9 @@ import {
 import screenfull from 'screenfull'
 import dayjs from 'dayjs'
 import './css/header.less'
-import demo from './demo.jpg'
 import { connect } from 'react-redux';
 import {deleteUserInfo} from '@/redux/actions/login'
+import{reqWeatherData} from '@/api/index'
 
 const { confirm } = Modal;
 @connect(
@@ -20,7 +20,8 @@ const { confirm } = Modal;
  class Header extends Component{
   state={
     isFull:false,
-    time:dayjs().format('YYYY年MM月DD日 HH:mm:ss ')
+    time:dayjs().format('YYYY年MM月DD日 HH:mm:ss '),
+    weatherData:{}
   }
   //退出登录
   logout=()=>{
@@ -37,7 +38,11 @@ const { confirm } = Modal;
   fullScreen=()=>{
     screenfull.toggle() //切换
   }
-          
+    getWeather=async()=>{
+      let result=await reqWeatherData()
+      const {nightPictureUrl,weather,temperature}=result
+      this.setState({weatherData:{nightPictureUrl,weather,temperature}})
+    }      
   componentDidMount(){
     //检测屏幕变化
     screenfull.onchange(()=>{
@@ -48,6 +53,9 @@ const { confirm } = Modal;
     this.timer=setInterval(()=>{
      this.setState({time:dayjs().format('YYYY年MM月DD日 HH:mm:ss ')}) 
     },1000)
+
+    //请求天气信息
+    this.getWeather()
   }
   componentWillUnmount(){
     //清除定时器
@@ -55,7 +63,7 @@ const { confirm } = Modal;
   }
   render(){
     const {username}=this.props
-    const {isFull,time}=this.state
+    const {isFull,time,weatherData}=this.state
     return (
       <div className="header">
         <div className="header-top">
@@ -71,9 +79,9 @@ const { confirm } = Modal;
           </div>
           <div className="bottom-right">
             <span>{time}</span>
-            <img src={demo} alt=""/>
-            <span>多云转晴</span>
-            <span>温度：0~20℃</span>
+            <img src={weatherData.nightPictureUrl} alt=""/>
+            <span>{weatherData.weather}</span>&nbsp;
+            <span>{weatherData.temperature}</span>
           </div>
         </div>
       </div>
