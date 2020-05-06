@@ -32,7 +32,8 @@ const { confirm } = Modal;
       onOk:()=> {
         this.props.deleteUserInfo();
       },
-      
+      okText:'确定',
+      cancelText:'取消',
     });
   }
   fullScreen=()=>{
