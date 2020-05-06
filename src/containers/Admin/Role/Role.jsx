@@ -3,7 +3,7 @@ import React,{Component} from 'react'
 export default class Role extends Component{
   render(){
     return (
-      <div></div>
+      <span>role</span>
     )
   }
 }
