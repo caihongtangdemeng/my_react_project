@@ -10,12 +10,16 @@ import dayjs from 'dayjs'
 import './css/header.less'
 import { connect } from 'react-redux';
 import {deleteUserInfo} from '@/redux/actions/login'
+import {saveTitle} from '@/redux/actions/title'
 import{reqWeatherData} from '@/api/index'
 
 const { confirm } = Modal;
 @connect(
-  state=>({username:state.userInfo.user.username}),
-  {deleteUserInfo}
+  state=>({
+    username:state.userInfo.user.username,
+    title:state.title
+  }),
+  {deleteUserInfo,saveTitle}
 )
  class Header extends Component{
   state={
@@ -76,7 +80,7 @@ const { confirm } = Modal;
         </div>
         <div className="header-bottom">
           <div className="bottom-left">
-            <span>首页</span>
+            <span>{this.props.title}</span>
           </div>
           <div className="bottom-right">
             <span>{time}</span>

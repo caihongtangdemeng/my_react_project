@@ -1,20 +1,28 @@
 import React,{Component} from 'react'
 import { Menu, Button } from 'antd';
 import {Link,withRouter} from 'react-router-dom'
+import {connect} from 'react-redux'
+import {saveTitle} from '@/redux/actions/title'
 import logo from '@/assets/images/logo.png'
 import './css/left_nav.less'
 import menus from '@/config/menu_config'
 
 const {Item,SubMenu } = Menu;
-
+@connect(
+  state=>({title:state.title}),
+  {saveTitle}
+)
 @withRouter
  class LeftNav extends Component{
+   save_Title=(title)=>{
+     this.props.saveTitle(title)
+   }
   //创建菜单函数
   createMenu=(menuArr)=>{
     return menuArr.map((menuObj)=>{
       if(!menuObj.children){
         return (
-          <Item key={menuObj.key}>
+          <Item key={menuObj.key} onClick={()=>{this.save_Title(menuObj.title)}}>
             <Link to={menuObj.path}>
               <menuObj.icon/>
               {menuObj.title}
