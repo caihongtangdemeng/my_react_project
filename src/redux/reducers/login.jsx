@@ -19,10 +19,12 @@ export default function (preState=initState,action) {
   const {type,data}=action
   switch (type) {
     case SAVE_USERINFO:
-      return newState={...data,isLogin:true}
+      newState={...data,isLogin:true}
+      return newState;
 
     case DELETE_USERINFO:
-      return newState={user:{},token:'',isLogin:false};
+      newState={user:{},token:'',isLogin:false}
+      return newState;
   
     default:
       return preState;

@@ -9,7 +9,7 @@ import menus from '@/config/menu_config'
 
 const {Item,SubMenu } = Menu;
 @connect(
-  state=>({title:state.title}),
+  ()=>({}),
   {saveTitle}
 )
 @withRouter
@@ -37,6 +37,27 @@ const {Item,SubMenu } = Menu;
         )
       }
     })
+  }
+  //计算 title 解决刷新title丢失问题
+  calculateTitle=()=>{
+    const {pathname}=this.props.location
+    let currentKey=pathname.split('/').slice(-1)[0]
+    if(currentKey==='admin') currentKey='home'
+    let title=''
+    menus.forEach((menuObj)=>{
+      if(menuObj.children instanceof Array){
+        let result=menuObj.children.find((childObj)=>{
+          return childObj.key===currentKey
+        })
+        if(result) title=result.title
+      }else{
+        if(menuObj.key===currentKey) title=menuObj.title
+      }
+    })
+    this.props.saveTitle(title)
+  }
+  componentDidMount(){
+    this.calculateTitle()
   }
   render(){
     const {pathname}=this.props.location

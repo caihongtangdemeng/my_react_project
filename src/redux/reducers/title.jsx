@@ -5,7 +5,8 @@ export default function (preState=initTitle,action) {
   const {type,data}=action
   switch (type) {
     case SAVE_TITLE:
-      return newState=data
+      newState=data
+      return newState
     default:
       return preState;
   }
