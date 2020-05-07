@@ -1,5 +1,5 @@
 import React,{Component} from 'react'
-import { Card, Button,Table } from 'antd';
+import { Card, Button,Table,Modal,Form,Input} from 'antd';
 import {connect} from 'react-redux'
 import { reqCategoryList } from '@/api';
 import {saveCategory} from '@/redux/actions/category'
@@ -9,6 +9,20 @@ import {saveCategory} from '@/redux/actions/category'
   {saveCategory}
 )
 class Category extends Component{
+  state = { visible: false };
+
+  showModal = () => {
+    this.setState({
+      visible: true,
+    });
+  };
+
+  handleOk = ()=> {
+    this.setState({ visible: false});
+  };
+
+  handleCancel =() => {this.setState({visible: false});
+  };
   // state={categoryList:[]} 数据存在自身
   getCategoryList=async()=>{
     let result =await reqCategoryList()
@@ -23,6 +37,7 @@ class Category extends Component{
     this.getCategoryList()
   }
   render(){
+    const {Item}=Form
     const dataSource = this.props.categoryList;
     
     const columns = [
@@ -44,7 +59,7 @@ class Category extends Component{
       <div>
         <Card  
           extra={
-            <Button type="primary">添加</Button>} 
+            <Button type="primary" onClick={this.showModal}>添加</Button>} 
         >
           <Table 
             dataSource={dataSource} 
@@ -53,6 +68,25 @@ class Category extends Component{
             rowKey="_id"
             pagination={{pageSize:4}} 
           />;
+          <Modal
+            title="新增分类"
+            visible={this.state.visible}
+            onOk={this.handleOk}
+            onCancel={this.handleCancel}
+            okText="确定"
+            cancelText="取消"
+          >
+            <Form>
+              <Item
+                name="category"
+                rules={[
+                  { required: true, message: '分类名必须输入' }
+                ]}
+              >
+                <Input placeholder="请输入分类名"/>
+              </Item>
+            </Form>
+          </Modal>
         </Card>
       </div>
     )
