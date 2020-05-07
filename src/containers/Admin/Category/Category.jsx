@@ -1,22 +1,29 @@
 import React,{Component} from 'react'
 import { Card, Button,Table } from 'antd';
+import {connect} from 'react-redux'
 import { reqCategoryList } from '@/api';
+import {saveCategory} from '@/redux/actions/category'
 
-export default class Category extends Component{
-  state={categoryList:[]}
+@connect(
+  state=>({categoryList:state.categoryList}),
+  {saveCategory}
+)
+class Category extends Component{
+  // state={categoryList:[]} 数据存在自身
   getCategoryList=async()=>{
     let result =await reqCategoryList()
-    console.log(result);
+    // console.log(result);
     const {status,data}=result
     if(status===0){
-      this.setState({categoryList:data})
+      // this.setState({categoryList:data})
+      this.props.saveCategory(data)
     }
   }
   componentDidMount(){
     this.getCategoryList()
   }
   render(){
-    const dataSource = this.state.categoryList;
+    const dataSource = this.props.categoryList;
     
     const columns = [
       {
@@ -51,3 +58,4 @@ export default class Category extends Component{
     )
   }
 }
+export default Category
