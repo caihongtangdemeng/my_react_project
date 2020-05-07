@@ -19,3 +19,4 @@ export const reqWeatherData=()=>{
     })
   })
 }
+export const reqCategoryList=()=>ajax.get('/manage/category/list')

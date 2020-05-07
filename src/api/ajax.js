@@ -11,6 +11,9 @@ import qs from 'querystring'
 import {message as msg} from 'antd' 
 import nprogress from 'nprogress'
 import 'nprogress/nprogress.css'
+import store from '@/redux/store'
+import {deleteUserInfo} from '@/redux/actions/login'
+import {saveTitle} from '@/redux/actions/title'
 
 axios.defaults.baseURL='/api'
 axios.defaults.timeout=2000
@@ -20,6 +23,10 @@ axios.interceptors.request.use((config)=>{
   const {method,data}=config
   if(method.toLowerCase()==='post'&&data instanceof Object){
     config.data=qs.stringify(data)
+  }
+  const {token} =store.getState().userInfo
+  if(token){
+    config.headers.Authorization='atguigu_'+token
   }
   return config
 })
@@ -33,7 +40,11 @@ axios.interceptors.response.use(
     nprogress.done()
     let errMsg='未知错误 请联系管理员'
     const {message}=err
-    if(message.indexOf('401')!==-1) errMsg='未登录或登录过期，请重新登录'
+    if(message.indexOf('401')!==-1) {
+      store.dispatch(deleteUserInfo())
+      store.dispatch(saveTitle(''))
+      errMsg='未登录或登录过期，请重新登录'
+    }
     else if(message.indexOf('Network Error')!==-1) errMsg='网络出错，请检查网络'
     else if(message.indexOf('timeout')!==-1) errMsg='网络不稳定，连接超时'
     //延时1s

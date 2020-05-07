@@ -1,22 +1,22 @@
 import React,{Component} from 'react'
 import { Card, Button,Table } from 'antd';
+import { reqCategoryList } from '@/api';
 
 export default class Category extends Component{
+  state={categoryList:[]}
+  getCategoryList=async()=>{
+    let result =await reqCategoryList()
+    console.log(result);
+    const {status,data}=result
+    if(status===0){
+      this.setState({categoryList:data})
+    }
+  }
+  componentDidMount(){
+    this.getCategoryList()
+  }
   render(){
-    const dataSource = [
-      {
-        key: '1',
-        name: '胡彦斌',
-        age: 32,
-        address: '西湖区湖底公园1号',
-      },
-      {
-        key: '2',
-        name: '胡彦祖',
-        age: 42,
-      },
-     
-    ];
+    const dataSource = this.state.categoryList;
     
     const columns = [
       {
@@ -33,7 +33,6 @@ export default class Category extends Component{
       },
   
     ];
-    
     return (
       <div>
         <Card  
@@ -41,10 +40,11 @@ export default class Category extends Component{
             <Button type="primary">添加</Button>} 
         >
           <Table 
-            pagination={{pageSize:4}} 
             dataSource={dataSource} 
             columns={columns} 
             bordered
+            rowKey="_id"
+            pagination={{pageSize:4}} 
           />;
         </Card>
       </div>

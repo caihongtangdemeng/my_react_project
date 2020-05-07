@@ -35,6 +35,7 @@ const { confirm } = Modal;
       content: '退出后需重新登陆',
       onOk:()=> {
         this.props.deleteUserInfo();
+        this.props.saveTitle('')
       },
       okText:'确定',
       cancelText:'取消',
