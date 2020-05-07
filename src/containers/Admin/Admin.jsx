@@ -30,7 +30,7 @@ const { Footer, Sider, Content } = Layout;
           <Sider><LeftNav /></Sider>
           <Layout>
             <Header />
-            <Content>
+            <Content className="admin-content">
               <Switch>
                 <Route path="/admin/home" component={Home}></Route>
                 <Route path="/admin/prod_about/category" component={Category}></Route>
@@ -43,7 +43,7 @@ const { Footer, Sider, Content } = Layout;
                 <Redirect to="/admin/home"/>
               </Switch>
             </Content>
-            <Footer>Footer</Footer>
+            <Footer className="admin-footer">Footer</Footer>
           </Layout>
     </Layout>
      
