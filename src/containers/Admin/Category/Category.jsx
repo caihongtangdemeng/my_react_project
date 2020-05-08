@@ -107,7 +107,7 @@ class Category extends Component{
             bordered
             rowKey="_id"
             pagination={{pageSize:PAGE_SIZE}} 
-          />;
+          />
         </Card>
           <Modal
             title={this.isUpdate? '修改分类' : '新增分类'}
