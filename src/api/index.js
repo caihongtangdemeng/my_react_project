@@ -19,4 +19,20 @@ export const reqWeatherData=()=>{
     })
   })
 }
+//  请求分类列表
 export const reqCategoryList=()=>ajax.get('/manage/category/list')
+//请求添加分类
+export const reqAddCategory=categoryName=>ajax.post('/manage/category/add',{categoryName})
+//请求更改分类名
+export const reqUpdataCategory=(categoryId,categoryName)=>ajax.post('/manage/category/update',{categoryId,categoryName})
+//请求商品列表（分页）
+export const reqProductList=(pageNum,pageSize)=>ajax.get('/manage/product/list',{params:{pageNum,pageSize}})
+//请求搜索商品（分页）
+export const reqSearchProduct=(searchType,keyWord,pageNum,pageSize)=>ajax.get('/manage/product/search',{params:{[searchType]:keyWord,pageNum,pageSize}})
+
+
+
+
+
+
+

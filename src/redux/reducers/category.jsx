@@ -5,10 +5,10 @@ export default function (preState=initState,action) {
   let newState
   switch (type) {
     case SAVE_CATEGORY:
-      newState=[...data]
-      return newState;
+      newState = [...data].reverse()
+      return newState
     default:
-      return preState;
+      return preState
   }
   
 }
