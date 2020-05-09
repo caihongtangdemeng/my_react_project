@@ -42,7 +42,12 @@ class Category extends Component{
       const {status,msg}=result
       if(status===0){
         message.success(this.isUpdate? '修改分类成功':'添加成功',MESSAGE_TIME)
-        this.props.saveCategory()
+        //this.props.saveCategory() //注意这里，你这里的意思是要保存分类，对吧，分类呢？你居然啥也没有传，肯定不行
+        //我上课的时候，也是什么有也没有传，但是我写的是异步action，不需要传，我就说保存，他自己去默默的发请求了
+        //但是你没有写异步action对吧，那就只能自己请求好数据，然后再存
+
+        //这么写就好了,那为什么呢？因为你的这个getCategoryList中的逻辑是：自己请求，随后存入redux
+        this.getCategoryList()
         this.setState({ visible: false});
         categoryForm.resetFields()
       }else{

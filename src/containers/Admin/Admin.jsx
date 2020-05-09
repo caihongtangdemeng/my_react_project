@@ -43,7 +43,7 @@ const { Footer, Sider, Content } = Layout;
                 <Redirect to="/admin/home"/>
               </Switch>
             </Content>
-            <Footer className="admin-footer">Footer</Footer>
+            <Footer className="admin-footer">推荐使用谷歌浏览器，获取最佳用户体验</Footer>
           </Layout>
     </Layout>
      
