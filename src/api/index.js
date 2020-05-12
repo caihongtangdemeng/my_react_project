@@ -29,8 +29,12 @@ export const reqUpdataCategory=(categoryId,categoryName)=>ajax.post('/manage/cat
 export const reqProductList=(pageNum,pageSize)=>ajax.get('/manage/product/list',{params:{pageNum,pageSize}})
 //请求搜索商品（分页）
 export const reqSearchProduct=(searchType,keyWord,pageNum,pageSize)=>ajax.get('/manage/product/search',{params:{[searchType]:keyWord,pageNum,pageSize}})
-
-
+//请求商品上架与下架
+export const reqUpdateProductStatus=(productId,status)=>ajax.post('/manage/product/updateStatus',{productId,status})
+//根据商品Id请求商品详细信息
+export const reqProductInfoById=(productId)=>ajax.get('/manage/product/info',{params:{productId}})
+//请求删除一个图片
+export const reqDeletePicture=(name)=>ajax.post('/manage/img/delete',{name})
 
 
 

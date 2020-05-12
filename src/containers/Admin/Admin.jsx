@@ -14,6 +14,8 @@ import Role from './Role/Role'
 import Bar from './Bar/Bar'
 import Line from './Line/Line'
 import Pie from './Pie/Pie'
+import AddUpdate from './Product/AddUpdate/AddUpdate';
+import Detail from './Product/Detail/Detail';
 
 const { Footer, Sider, Content } = Layout;
 
@@ -24,7 +26,7 @@ const { Footer, Sider, Content } = Layout;
 @Check
  class Admin extends Component{
   render(){
-    if(!this.props.isLogin) return <Redirect to="/login"/>
+    // if(!this.props.isLogin) return <Redirect to="/login"/>
     return (
         <Layout className="admin-container">
           <Sider><LeftNav /></Sider>
@@ -34,12 +36,16 @@ const { Footer, Sider, Content } = Layout;
               <Switch>
                 <Route path="/admin/home" component={Home}></Route>
                 <Route path="/admin/prod_about/category" component={Category}></Route>
-                <Route path="/admin/prod_about/product" component={Product}></Route>
+                <Route path="/admin/prod_about/product" exact component={Product}></Route>
                 <Route path="/admin/user" component={User}></Route>
                 <Route path="/admin/role" component={Role}></Route>
                 <Route path="/admin/charts/bar" component={Bar}></Route>
                 <Route path="/admin/charts/line" component={Line}></Route>
                 <Route path="/admin/charts/pie" component={Pie}></Route>
+                <Route path="/admin/prod_about/product/add" component={AddUpdate}></Route>
+                <Route path="/admin/prod_about/product/update/:id" component={AddUpdate}></Route>
+                <Route path="/admin/prod_about/product/detail/:id" component={Detail}></Route>
+
                 <Redirect to="/admin/home"/>
               </Switch>
             </Content>
