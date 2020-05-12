@@ -4,6 +4,7 @@ import {ArrowLeftOutlined} from '@ant-design/icons';
 import {connect} from 'react-redux'
 import {saveCategory} from '@/redux/actions/category'
 import PictureWall from './PictureWall/PictureWall'
+import {reqCategoryList} from '@/api/index'
 
 const {Item} = Form
 const {Option}=Select
@@ -12,6 +13,19 @@ const {Option}=Select
   {saveCategory}
 )
 class AddUpdate extends Component{
+  getCategoryList=async()=>{
+    let result =await reqCategoryList()
+    // console.log(result);
+    const {status,data}=result
+    if(status===0){
+      // this.setState({categoryList:data})
+      this.props.saveCategory(data)
+    }
+  }
+  componentDidMount(){
+    const {categoryList,saveCategory}=this.props
+    if(categoryList.length===0) this.getCategoryList()
+  }
   render(){
     return (
         <Card title={
@@ -61,7 +75,7 @@ class AddUpdate extends Component{
               <Select>
                 <Option value="">请选择分类</Option>
                 {this.props.categoryList.map((categoryObj)=>{
-                  return <Option key={categoryObj.id}/>
+                  return <Option key={categoryObj.id} value={categoryObj._id}>{categoryObj.name} </Option>
                 })}
               </Select>
             </Item>
@@ -69,7 +83,7 @@ class AddUpdate extends Component{
               label="商品图片"
               wrapperCol={{span:6}}
             >
-              <PictureWall />
+              {/* <PictureWall /> */}
             </Item>
             <Item
               name="商品详情"
